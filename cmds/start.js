@@ -46,8 +46,8 @@ client.giveawaysManager.start(giveawayChannel, {
     hostedBy: message.author,
     // Messages
     messages: {
-        giveaway: (client.config.everyoneMention ? "@everyone\n\n" : "")+"🎉🎉 **GIVEAWAY** 🎉🎉",
-        giveawayEnded: (client.config.everyoneMention ? "@everyone\n\n" : "")+"🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
+        giveaway: "🎉🎉 **GIVEAWAY** 🎉🎉",
+        giveawayEnded: "🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
         timeRemaining: "Time remaining: **{duration}**!",
         inviteToParticipate: "React with 🎉 to participate!",
         winMessage: "Congratulations, {winners}! You won **{prize}**!",

@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-const fetch = require("node-fetch")
+const fetch = require("node-fetch");
+const db = require("quick.db")
 let thisisarray = ["515930206557569036", "243728573624614912"]
 
 exports.name = "eval";

@@ -17,6 +17,7 @@ const welcomeHook = new WebhookClient("855442447064629258", "CshLa5nbDYxh6AKhyNv
 
 client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()
+client.db = require("quick.db")
 client.config = require("./config.json")
 
 const { GiveawaysManager } = require("discord-giveaways");

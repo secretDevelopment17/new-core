@@ -21,6 +21,7 @@ client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()
 client.db = require("quick.db")
 client.config = require("./config.json")
+client.cases = Math.random(1000).toString(36).substr(2, 8);
 
 const { GiveawaysManager } = require("discord-giveaways");
 const db = require("quick.db");
@@ -282,13 +283,38 @@ client.on("guildMemberAdd", async (member) => {
 		lineReader.eachLine('dangurls.txt', (line, last) => {
 			if (message.content.toLowerCase().startsWith("https://www." + line) || (message.content.toLowerCase().startsWith("http://www." + line)) || (message.content.toLowerCase().startsWith(line)) || (message.content.toLowerCase().startsWith("http://" + line)) || (message.content.toLowerCase().startsWith("https://" + line))) {
 				message.channel.messages.fetch(a).then(msg => msg.delete({ timeout: 1000 }));
+
 				let links = new Discord.MessageEmbed()
 					.setColor('#E7A700')
 					.setTitle(`⚠ Malicious link detected ⚠`)
 					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
 
+				const author = `${client.user}`
+				const reason = `Posted malicious link detected`	
+				let member = message.author
+				let logsLink = new Discord.MessageEmbed()
+					.setColor("RED")
+					.setAuthor(`Auto-Muted | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
+					.setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
+					.addField("**Warned User**", `${member} | \`${member.id}\``)
+					.addField("**Moderator**", `${author} | \`${author.id}\``)
+					.addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
+					.addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
+					.setTimestamp();
+
+				const userEmbed = new Discord.MessageEmbed()
+					.setAuthor(`${message.guild.name} Auto-Muted | Case ${client.cases}`, message.guild.iconURL())
+					.setColor("#2f3136")
+					.setDescription(`You has been auto-muted on **${message.guild.name}**`)
+					.addField('Reason', `\`\`\`${reason}\`\`\``)
+					.addField("Moderator", `${author} | \`${author.id}\``)
+					.setFooter(`If this is a mistake, please DM our staff`)
+					.setTimestamp();	
+
 				message.member.roles.add("954378331401367572")
-				db.set(`isMuted.${members.user.id}`, true);
+				client.users.cache.get(member.id).send(userEmbed)
+				db.set(`isMuted.${message.author.id}`, true);
+				bot.channels.cache.get("954396398617501726").send(logsLink)
 				message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
 					message.reply("An error occured");
 				});
@@ -312,10 +338,36 @@ client.on("guildMemberAdd", async (member) => {
 					.setColor('#E7A700')
 					.setTitle(`⚠ This link is ${road.data.attributes.last_analysis_results.Kaspersky.result.toUpperCase()} ⚠`)
 					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
-
+					
+					const author = `${client.user}`
+					const reason = `Posted malicious link detected`	
+					let member = message.author
+					let logsLink = new Discord.MessageEmbed()
+						.setColor("RED")
+						.setAuthor(`Auto-Muted | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
+						.setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
+						.addField("**Warned User**", `${member} | \`${member.id}\``)
+						.addField("**Moderator**", `${author} | \`${author.id}\``)
+						.addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
+						.addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
+						.setTimestamp();
+	
+					const userEmbed = new Discord.MessageEmbed()
+						.setAuthor(`${message.guild.name} Auto-Muted | Case ${client.cases}`, message.guild.iconURL())
+						.setColor("#2f3136")
+						.setDescription(`You has been auto-muted on **${message.guild.name}**`)
+						.addField('Reason', `\`\`\`${reason}\`\`\``)
+						.addField("Moderator", `${author} | \`${author.id}\``)
+						.setFooter(`If this is a mistake, please DM our staff`)
+						.setTimestamp();	
+	
+					message.member.roles.add("954378331401367572")
+					client.users.cache.get(member.id).send(userEmbed)
+					db.set(`isMuted.${message.author.id}`, true);
+					bot.channels.cache.get("954396398617501726").send(logsLink)
 					message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
-					return message.reply("An error occured");
-				});
+						message.reply("An error occured");
+					});
 			}
 		});
 	}

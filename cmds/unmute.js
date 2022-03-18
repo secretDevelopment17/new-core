@@ -8,6 +8,16 @@ exports.run = async (client, message, args) => {
     if (!muted) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:890560104603189288> | Sorry, but <@${user.id}> is not muted.`).setColor("RED"))
     if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:890560104603189288> | I can't find \`Muted\` role in this guild`).setColor("RED"))
     
+    let embed = new Discord.MessageEmbed()
+    .setColor("GREEN")
+    .setAuthor(`Unmuted User | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
+    .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
+    .addField("**Warned User**", `${member} | \`${member.id}\``)
+    .addField("**Moderator**", `${author} | \`${author.id}\``)
+    .addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
+    .addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
+    .setTimestamp();
+
     user.roles.remove(muteRole)
     db.delete(`isMuted.${user.id}`)
     message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:890559630525202432> | <@${user.id}> has been unmuted.`).setColor("GREEN"))

@@ -297,7 +297,7 @@ client.on("guildMemberAdd", async (member) => {
 					.setAuthor(`Auto-Muted | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
 					.setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
 					.addField("**Warned User**", `${member} | \`${member.id}\``)
-					.addField("**Moderator**", `${author} | \`${author.id}\``)
+					.addField("**Moderator**", `${author} | \`${author.user.id}\``)
 					.addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
 					.addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
 					.setTimestamp();
@@ -357,7 +357,7 @@ client.on("guildMemberAdd", async (member) => {
 						.setColor("#2f3136")
 						.setDescription(`You has been auto-muted on **${message.guild.name}**`)
 						.addField('Reason', `\`\`\`${reason}\`\`\``)
-						.addField("Moderator", `${author} | \`${author.id}\``)
+						.addField("Moderator", `${author} | \`${author.user.id}\``)
 						.setFooter(`If this is a mistake, please DM our staff`)
 						.setTimestamp();	
 	

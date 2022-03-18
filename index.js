@@ -17,11 +17,16 @@ const db = require("quick.db")
 const { WebhookClient } = require("discord.js");
 const welcomeHook = new WebhookClient("954181221800374282", "uMTA4hjNA9zItLJ95D-fveOtyLu5qnPCY8BAUenqmq_Of8ufuDAw8zhodvfCHakeg8MV");
 const bot = client
+const { KeyMongo } = require("key-mongo")
 
 client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()
 client.db = require("quick.db")
 client.config = require("./config.json")
+client.mongo = new KeyMongo({
+	dbName: "data",
+	dbUrl: "mongodb+srv://secretDevelopment17:secretdev170720@core-data.quzlg.mongodb.net/data"
+})
 client.cases = Math.random(1000).toString(36).substr(2, 8);
 
 const { GiveawaysManager } = require("discord-giveaways");

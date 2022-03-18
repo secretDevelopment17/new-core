@@ -3,7 +3,7 @@ const db = require("quick.db")
 
 exports.run = async (client, message, args) => {
     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
-    let muteRole = message.guild.roles.find(r => r.name === "Muted")
+    let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
     if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:890560104603189288> | I can't find \`Muted\` role in this guild`).setColor("RED"))
     let reason = args.slice(1).join(" ")
     if (reason) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:890560104603189288> | You need to specify a reason for muting this user.`).setColor("RED"))

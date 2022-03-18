@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fetch = require("node-fetch");
 const db = require("quick.db")
-let thisisarray = ["515930206557569036", "243728573624614912"]
+let thisisarray = ["735403745998798902"]
 
 exports.name = "eval";
 exports.run = async (bot, message, query) => {

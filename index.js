@@ -16,6 +16,7 @@ const lineReader = require('line-reader');
 const db = require("quick.db")
 const { WebhookClient } = require("discord.js");
 const welcomeHook = new WebhookClient("954181221800374282", "uMTA4hjNA9zItLJ95D-fveOtyLu5qnPCY8BAUenqmq_Of8ufuDAw8zhodvfCHakeg8MV");
+const bot = client
 
 client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()

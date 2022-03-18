@@ -13,6 +13,7 @@ const config = require("./config.json");
 const disbut = require('discord-buttons');
 disbut(client)
 const lineReader = require('line-reader');
+const db = require("quick.db")
 const { WebhookClient } = require("discord.js");
 const welcomeHook = new WebhookClient("954181221800374282", "uMTA4hjNA9zItLJ95D-fveOtyLu5qnPCY8BAUenqmq_Of8ufuDAw8zhodvfCHakeg8MV");
 
@@ -181,12 +182,13 @@ client.on("guildMemberAdd", async (member) => {
 	const embed = new Discord.MessageEmbed()
 	.setColor("GREEN")
 	.setDescription(`<a:Join:593588419087695872> | ${welcomer[random]}`)
-
-  client.channels.cache.get("954176559332327494").send(logsEmbed)
-  ch.setName(`Total Member : ${member.guild.memberCount}`)
-  welcomeHook.send(embed);
-  member.send({ embed: memberEmbed, components: [row] })
-  member.roles.add("954181940381098014")
+  
+  	client.channels.cache.get("954176559332327494").send(logsEmbed)
+  	ch.setName(`Total Member : ${member.guild.memberCount}`)
+ 	 welcomeHook.send(embed);
+  	member.send({ embed: memberEmbed, components: [row] })
+  	member.roles.add("954181940381098014")
+	if (db.has(`isMuted.${member.user.id}`)) member.roles.add("954378331401367572");
   })
 
   client.on("guildMemberRemove", async (member) => {
@@ -285,6 +287,8 @@ client.on("guildMemberAdd", async (member) => {
 					.setTitle(`⚠ Malicious link detected ⚠`)
 					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
 
+				message.member.roles.add("954378331401367572")
+				db.set(`isMuted.${members.user.id}`, true);
 				message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
 					message.reply("An error occured");
 				});

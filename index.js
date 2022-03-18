@@ -312,7 +312,7 @@ client.on("guildMemberAdd", async (member) => {
 					.setColor("#2f3136")
 					.setDescription(`You has been auto-muted on **${message.guild.name}**`)
 					.addField('Reason', `\`\`\`${reason}\`\`\``)
-					.addField("Moderator", `${author} | \`${author.id}\``)
+					.addField("Moderator", `${author}`)
 					.setFooter(`If this is a mistake, please DM our staff`)
 					.setTimestamp();	
 
@@ -367,7 +367,7 @@ client.on("guildMemberAdd", async (member) => {
 						.setColor("#2f3136")
 						.setDescription(`You has been auto-muted on **${message.guild.name}**`)
 						.addField('Reason', `\`\`\`${reason}\`\`\``)
-						.addField("Moderator", `${author} | \`${author.user.id}\``)
+						.addField("Moderator", `${author}`)
 						.setFooter(`If this is a mistake, please DM our staff`)
 						.setTimestamp();	
 	

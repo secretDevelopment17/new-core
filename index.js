@@ -231,14 +231,14 @@ client.on("guildMemberAdd", async (member) => {
 			  .setDescription([
 				  `> Message ID: \`${message.id}\``,
 				  `> Channel: ${message.channel}`,
-				  `> Author: ${message.member.tag} | \`${message.member.id}\``,
+				  `> Author: <@!${message.member.id}> | \`${message.member.id}\``,
 				  //`${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : '\u200B'}`
 			  ]);
 		  if (message.content.length) {
 			  embed.addField(`> Content:`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
 		  }
 		  if (attachments) {
-			  embed.setImage(attachments.proxyURL);
+			  embed.setImage(attachments[0]);
 		  }
   
 		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
@@ -256,7 +256,7 @@ client.on("guildMemberAdd", async (member) => {
 			  .setDescription([
 				  `> Message ID: \`${old.id}\``,
 				  `> Channel: ${old.channel}`,
-				  `> Author: ${old.author.tag} | \`${old.author.id}\``
+				  `> Author: <@!${old.author.id}> | \`${old.author.id}\``
 			  ])
 		.addField("> Before:", `\`\`\`${old.content}\`\`\``)
 		.addField("> After:", `\`\`\`${message.content}\`\`\``)  

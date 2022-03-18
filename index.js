@@ -13,7 +13,7 @@ const config = require("./config.json");
 const disbut = require('discord-buttons');
 disbut(client) 
 const { WebhookClient } = require("discord.js");
-const welcomeHook = new WebhookClient("855442447064629258", "CshLa5nbDYxh6AKhyNvkOw_E5EfRpWlq_sMOuEYBym0iY_tJJ-j27CW-X2J5ifFtPeUQ");
+const welcomeHook = new WebhookClient("954181221800374282", "uMTA4hjNA9zItLJ95D-fveOtyLu5qnPCY8BAUenqmq_Of8ufuDAw8zhodvfCHakeg8MV");
 
 client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()
@@ -111,7 +111,7 @@ client.on("ready", () => {
   
   setInterval(() => {
     client.user.setPresence({
-            activity: { name: "in ThePeanuts~", type: "PLAYING" },
+            activity: { name: "in AthX", type: "PLAYING" },
             status: "online"
           });;
   }, 5000);
@@ -138,7 +138,7 @@ client.on('message', async message => {
 })
 
 client.on("guildMemberAdd", async (member) => {
-    const ch = client.channels.cache.get("855434899204603934")
+    const ch = client.channels.cache.get("954177761868664863")
 	const welcomer = [
 		`${member.user} just landed 🚀`,
 		`Glad you're here, ${member.user} 👋`,
@@ -149,49 +149,47 @@ client.on("guildMemberAdd", async (member) => {
 	  ];
 	  let random = Math.floor(Math.random() * welcomer.length)  
 
-	const logsEmbed = new Discord.MessageEmbed()
-	.setTitle(`[\`${member.guild.memberCount}\`] **${member.user.username}** has joined.`)
-	.setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
-	.setColor("GREEN")
-	.setDescription(`
-		Hi! Welcome to the **ThePeanuts~** ${member.user}, we hope you are happy here.
-		Before you explore our community, you need read rules in <#734918354116018273>
-	`)
-	.setFooter(`Member joined`, `https://cdn.discordapp.com/emojis/574840956444999681.png?v=1`)
-	.setTimestamp();
+	  const logsEmbed = new Discord.MessageEmbed()
+	  .setTitle(`[\`${member.guild.memberCount}\`] Member joined.`)
+	  .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
+	  .setColor("GREEN")
+	  .setDescription(`\`\`\`asciidoc
+• Username :: ${member.user.username} | #${member.user.discriminator}
+• ID :: ${member.user.id}
+• Created At :: ${new Date(member.user.createdTimestamp).toString()}    
+	  \`\`\``)
+	  .setFooter(`Member joined`, `https://cdn.discordapp.com/emojis/574840956444999681.png?v=1`)
+	  .setTimestamp();
 
 	const memberEmbed = new Discord.MessageEmbed()
-	.setColor("#2c84de")
+	.setColor("#2f3136")
 	.setThumbnail(member.guild.iconURL({ dynamic: true, size: 4096 }))
 	.setDescription(`
-		Welcome to the **ThePeanuts~** servers, ${member.user}!
-
-		I hope you feel at home on our server and entertaiment with friends on our servers,
-		Introduce us from the ThePeanuts~. Server to play together and as a public community. You can play and socialize here. You can also learn some things here
+		Greetings, ${member.user}!
+		Welcome to **${member.guild.name}**!
 
 		Before you do anything, you have to read the rules that we have provided,
-		you are advised to read the **Rules and Information** in the <#734918354116018273> channels.
+		you are advised to read the **Rules and Information** in the <#954175101371301960> channels.
 	`)
-	.addField("\u200B", "[Website](https://www.secretdev.tech/) | [Instagram](https://www.instagram.com/secretdev_) | [YouTube](https://www.youtube.com/channel/UCeMM8b7Wt3Y4goKzR-Xf-Hw) | [Donate](https://karyakarsa.com/secretdevelopment)")
 	.setFooter(`You are now in ${member.guild.memberCount} Members.`);
 
 
 	const row = new (disbut.MessageActionRow)().addComponent(
-	new (disbut.MessageButton)().setLabel("Read our rules").setStyle("url").setURL('https://discord.com/channels/733684454027034685/734918354116018273'));
+	new (disbut.MessageButton)().setLabel("Read our rules").setStyle("url").setURL('https://discord.com/channels/954173179042091028/954175757259788328'));
 	
 	const embed = new Discord.MessageEmbed()
 	.setColor("GREEN")
 	.setDescription(`<a:Join:593588419087695872> | ${welcomer[random]}`)
 
-  client.channels.cache.get("734920096887078922").send(logsEmbed)
+  client.channels.cache.get("954176559332327494").send(logsEmbed)
   ch.setName(`Total Member : ${member.guild.memberCount}`)
   welcomeHook.send(embed);
   member.send({ embed: memberEmbed, components: [row] })
-  member.roles.add("734329749437939775")
+  member.roles.add("954181940381098014")
   })
 
   client.on("guildMemberRemove", async (member) => {
-    const ch = client.channels.cache.get("855434899204603934")
+    const ch = client.channels.cache.get("954177761868664863")
 	const leaved = [
 		`**${member.user.tag}** just left our server 😔`,
 		`We are sad to see you leave the server **${member.user.tag}** 😭`,
@@ -202,19 +200,23 @@ client.on("guildMemberAdd", async (member) => {
 	  ];
 	let random = Math.floor(Math.random() * leaved.length) 
 
-	const logsEmbed = new Discord.MessageEmbed()
-	.setTitle(`[\`${member.guild.memberCount}\`] **${member.user.username}** has been leaved.`)
-	.setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
-	.setColor("RED")
-	.setDescription(`Goodbye ${member.user.tag}, We hope you will join us again!`)
-	.setFooter(`Member leaved`, `https://cdn.discordapp.com/emojis/574840995246768149.png?v=1`)
-	.setTimestamp();
+    const logsEmbed = new Discord.MessageEmbed()
+      .setTitle(`[\`${member.guild.memberCount}\`] Member leaved.`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
+      .setColor("RED")
+      .setDescription(`\`\`\`asciidoc
+• Username :: ${member.user.username} | #${member.user.discriminator}
+• ID :: ${member.user.id}
+• Created At :: ${new Date(member.user.createdTimestamp).toString()}    
+          \`\`\``)
+      .setFooter(`Member leaved`, `https://cdn.discordapp.com/emojis/574840995246768149.png?v=1`)
+      .setTimestamp();
 
 	const embed = new Discord.MessageEmbed()
 	.setColor("RED")
 	.setDescription(`<a:Leave:593588489342156810> | ${leaved[random]}`)
 
-	client.channels.cache.get("734920096887078922").send(logsEmbed)
+	client.channels.cache.get("954176559332327494").send(logsEmbed)
 	ch.setName(`Total Member : ${member.guild.memberCount}`)
 	welcomeHook.send(embed);
   })

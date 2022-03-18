@@ -285,7 +285,7 @@ client.on("guildMemberAdd", async (member) => {
 					.setTitle(`⚠ Malicious link detected ⚠`)
 					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
 
-				message.reply(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
+				message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
 					message.reply("An error occured");
 				});
 				j++;
@@ -309,7 +309,7 @@ client.on("guildMemberAdd", async (member) => {
 					.setTitle(`⚠ This link is ${road.data.attributes.last_analysis_results.Kaspersky.result.toUpperCase()} ⚠`)
 					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
 
-					message.reply(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
+					message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
 					return message.reply("An error occured");
 				});
 			}

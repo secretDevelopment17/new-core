@@ -221,21 +221,24 @@ client.on("guildMemberAdd", async (member) => {
 	welcomeHook.send(embed);
   })
 
+  // ===== MESSAGE DELETE LOGS =====
   client.on("messageDelete", async (message) => {
 	if (!message.guild || message.author.bot) return;
 		  const attachments = message.attachments.size !== 0 ? message.attachments.map(attachment => attachment.proxyURL) : null;
 		  const embed = new Discord.MessageEmbed()
-			  .setColor('BLUE')
-			  .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
-			  .setTitle('Message Deleted')
+			  .setColor('#2f3136')
+			  .setAuthor(`New Message Deleted`, `https://cdn.discordapp.com/emojis/737554516999929867.gif?size=32&quality=lossless`)
 			  .setDescription([
-				  `**❯ Message ID:** \`${message.id}\``,
-				  `**❯ Channel:** ${message.channel}`,
-				  `**❯ Author:** ${message.member.displayName}`,
-				  `${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : '\u200B'}`
+				  `> Message ID: \`${message.id}\``,
+				  `> Channel: ${message.channel}`,
+				  `> Author: ${message.member.displayName}#${message.member.discriminator} | \`${message.member.id}\``,
+				  //`${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : '\u200B'}`
 			  ]);
 		  if (message.content.length) {
 			  embed.addField(`**❯ Deleted Message:**`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
+		  }
+		  if (attachments) {
+			  embed.setImage(attachment);
 		  }
   
 		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
@@ -243,22 +246,22 @@ client.on("guildMemberAdd", async (member) => {
 	  
   });
   
-  
+  // ===== MESSAGE UPDATE LOGS =====
   client.on('messageUpdate', async (old, message) => {
 	if (!message.guild || old.content === message.content || message.author.bot) return;
   
 		  const embed = new Discord.MessageEmbed()
-			  .setColor('BLUE')
-			  .setAuthor(old.author.tag, client.user.displayAvatarURL({ dynamic: true }))
+			  .setColor('#2f3136')
+			  .setAuthor(`[New Message Update](${old.url})`, `https://cdn.discordapp.com/emojis/737554516999929867.gif?size=32&quality=lossless`)
 			  .setTitle('Message Updated')
 			  .setDescription([
-				  `**❯ Message ID:** ${old.id}`,
-				  `**❯ Channel:** ${old.channel}`,
-				  `**❯ Author:** ${old.author.tag} (${old.author.id})`
+				  `> Message ID: \`${old.id}\``,
+				  `> Channel: ${old.channel}`,
+				  `> Author: ${old.author.tag} | \`${old.author.id}\``
 			  ])
 			  .setURL(old.url)
-		.addField("**❯ Before:**", `\`\`\`${old.content}\`\`\``)
-		.addField("**❯ After:**", `\`\`\`${message.content}\`\`\``)  
+		.addField("> Before:", `\`\`\`${old.content}\`\`\``)
+		.addField("> After:", `\`\`\`${message.content}\`\`\``)  
   
 		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
 		  if (channel) channel.send(embed);

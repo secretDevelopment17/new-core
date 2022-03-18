@@ -283,10 +283,9 @@ client.on("guildMemberAdd", async (member) => {
 				let links = new Discord.MessageEmbed()
 					.setColor('#E7A700')
 					.setTitle(`⚠ Malicious link detected ⚠`)
-					.setDescription(`${message.author}`)
-					.setFooter("This filter is in beta. False negatives are possible but very rare. If you got this warning be careful of the link");
+					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
 
-				message.reply(`${message.author}`).then(x => x.send(links)).catch(err => {
+				message.reply(`${message.author}`).then(() => message.send(links)).catch(err => {
 					message.reply("An error occured");
 				});
 				j++;
@@ -308,10 +307,9 @@ client.on("guildMemberAdd", async (member) => {
 				let links = new Discord.MessageEmbed()
 					.setColor('#E7A700')
 					.setTitle(`⚠ This link is ${road.data.attributes.last_analysis_results.Kaspersky.result.toUpperCase()} ⚠`)
-					.setDescription(`${message.author}`)
-					.setFooter("This filter is in beta. False negatives are possible but very rare. If you got this warning be careful of the link");
+					.setFooter("The link sent may be a malicious link. I will try to prevent, don't try to open it");
 
-				message.reply(links).catch(err => {
+					message.reply(`${message.author}`).then(() => message.send(links)).catch(err => {
 					return message.reply("An error occured");
 				});
 			}

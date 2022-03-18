@@ -24,7 +24,6 @@ client.config = require("./config.json")
 client.cases = Math.random(1000).toString(36).substr(2, 8);
 
 const { GiveawaysManager } = require("discord-giveaways");
-const db = require("quick.db");
 if(!db.get("giveaways")) db.set("giveaways", []);
 
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {

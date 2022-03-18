@@ -221,5 +221,49 @@ client.on("guildMemberAdd", async (member) => {
 	welcomeHook.send(embed);
   })
 
+  client.on("messageDelete", async (message) => {
+	if (!message.guild || message.author.bot) return;
+		  const attachments = message.attachments.size !== 0 ? message.attachments.map(attachment => attachment.proxyURL) : null;
+		  const embed = new Discord.MessageEmbed()
+			  .setColor('BLUE')
+			  .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+			  .setTitle('Message Deleted')
+			  .setDescription([
+				  `**❯ Message ID:** \`${message.id}\``,
+				  `**❯ Channel:** ${message.channel}`,
+				  `**❯ Author:** ${message.member.displayName}`,
+				  `${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : '\u200B'}`
+			  ]);
+		  if (message.content.length) {
+			  embed.addField(`**❯ Deleted Message:**`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
+		  }
+  
+		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
+		  if (channel) channel.send(embed);
+	  
+  });
+  
+  
+  client.on('messageUpdate', async (old, message) => {
+	if (!message.guild || old.content === message.content || message.author.bot) return;
+  
+		  const embed = new Discord.MessageEmbed()
+			  .setColor('BLUE')
+			  .setAuthor(old.author.tag, client.user.displayAvatarURL({ dynamic: true }))
+			  .setTitle('Message Updated')
+			  .setDescription([
+				  `**❯ Message ID:** ${old.id}`,
+				  `**❯ Channel:** ${old.channel}`,
+				  `**❯ Author:** ${old.author.tag} (${old.author.id})`
+			  ])
+			  .setURL(old.url)
+		.addField("**❯ Before:**", `\`\`\`${old.content}\`\`\``)
+		.addField("**❯ After:**", `\`\`\`${message.content}\`\`\``)  
+  
+		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
+		  if (channel) channel.send(embed);
+	  
+  })
+
 
 client.login(config.token);

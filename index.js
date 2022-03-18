@@ -111,7 +111,7 @@ client.on("ready", () => {
   
   setInterval(() => {
     client.user.setPresence({
-            activity: { name: "in AthX", type: "PLAYING" },
+            activity: { name: "VALORANT", type: "PLAYING" },
             status: "online"
           });;
   }, 5000);
@@ -231,11 +231,11 @@ client.on("guildMemberAdd", async (member) => {
 			  .setDescription([
 				  `> Message ID: \`${message.id}\``,
 				  `> Channel: ${message.channel}`,
-				  `> Author: ${message.member.displayName}#${message.member.discriminator} | \`${message.member.id}\``,
+				  `> Author: ${message.member.tag} | \`${message.member.id}\``,
 				  //`${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : '\u200B'}`
 			  ]);
 		  if (message.content.length) {
-			  embed.addField(`**❯ Deleted Message:**`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
+			  embed.addField(`> Content:`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
 		  }
 		  if (attachments) {
 			  embed.setImage(attachment);
@@ -252,8 +252,7 @@ client.on("guildMemberAdd", async (member) => {
   
 		  const embed = new Discord.MessageEmbed()
 			  .setColor('#2f3136')
-			  .setAuthor(`[New Message Update](${old.url})`, `https://cdn.discordapp.com/emojis/737554516999929867.gif?size=32&quality=lossless`)
-			  .setTitle('Message Updated')
+			  .setAuthor(`New Message Update`, `https://cdn.discordapp.com/emojis/737554516999929867.gif?size=32&quality=lossless`)
 			  .setDescription([
 				  `> Message ID: \`${old.id}\``,
 				  `> Channel: ${old.channel}`,

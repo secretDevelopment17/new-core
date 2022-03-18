@@ -11,7 +11,8 @@ const client = new Client({
 const fs = require("fs")
 const config = require("./config.json");
 const disbut = require('discord-buttons');
-disbut(client) 
+disbut(client)
+const lineReader = require('line-reader');
 const { WebhookClient } = require("discord.js");
 const welcomeHook = new WebhookClient("954181221800374282", "uMTA4hjNA9zItLJ95D-fveOtyLu5qnPCY8BAUenqmq_Of8ufuDAw8zhodvfCHakeg8MV");
 

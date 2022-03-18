@@ -301,7 +301,7 @@ client.on("guildMemberAdd", async (member) => {
 					.setColor("RED")
 					.setAuthor(`Auto-Muted | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
 					.setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
-					.addField("**Warned User**", `${member} | \`${member.id}\``)
+					.addField("**Muted User**", `${member} | \`${member.id}\``)
 					.addField("**Moderator**", `${author} | \`${author.user.id}\``)
 					.addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
 					.addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
@@ -319,7 +319,12 @@ client.on("guildMemberAdd", async (member) => {
 				message.member.roles.add("954378331401367572")
 				client.users.cache.get(member.id).send(userEmbed)
 				db.set(`isMuted.${message.author.id}`, true);
-				bot.channels.cache.get("954396398617501726").send(logsLink)
+				bot.channels.cache.get(bot.config.modsChannel).send(logsLink)
+				bot.mongo.set("case", bot.cases, {
+					user: member.id,
+					moderator: author.id,
+					reason: reason
+				})
 				message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
 					message.reply("An error occured");
 				});
@@ -351,7 +356,7 @@ client.on("guildMemberAdd", async (member) => {
 						.setColor("RED")
 						.setAuthor(`Auto-Muted | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
 						.setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
-						.addField("**Warned User**", `${member} | \`${member.id}\``)
+						.addField("**Muted User**", `${member} | \`${member.id}\``)
 						.addField("**Moderator**", `${author} | \`${author.id}\``)
 						.addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
 						.addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
@@ -369,7 +374,12 @@ client.on("guildMemberAdd", async (member) => {
 					message.member.roles.add("954378331401367572")
 					client.users.cache.get(member.id).send(userEmbed)
 					db.set(`isMuted.${message.author.id}`, true);
-					bot.channels.cache.get("954396398617501726").send(logsLink)
+					bot.channels.cache.get(bot.config.modsChannel).send(logsLink)
+					bot.mongo.set("case", bot.cases, {
+						user: member.id,
+						moderator: author.id,
+						reason: reason
+					})
 					message.channel.send(`${message.author}`).then(() => message.channel.send(links)).catch(err => {
 						message.reply("An error occured");
 					});

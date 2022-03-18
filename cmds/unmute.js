@@ -10,7 +10,7 @@ exports.run = async (client, message, args) => {
     
     let embed = new Discord.MessageEmbed()
     .setColor("GREEN")
-    .setAuthor(`Unmuted User | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
+    .setAuthor(`Unmuted User`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
     .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
     .addField("**Warned User**", `${member} | \`${member.id}\``)
     .addField("**Moderator**", `${author} | \`${author.id}\``)
@@ -19,6 +19,7 @@ exports.run = async (client, message, args) => {
     .setTimestamp();
 
     user.roles.remove(muteRole)
+    client.channels.cache.get(client.config.modsChannel).send(embed)
     db.delete(`isMuted.${user.id}`)
     message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:890559630525202432> | <@${user.id}> has been unmuted.`).setColor("GREEN"))
     

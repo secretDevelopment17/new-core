@@ -25,7 +25,7 @@ client.db = require("quick.db")
 client.config = require("./config.json")
 client.mongo = new KeyMongo({
 	dbName: "data",
-	dbUrl: "mongodb+srv://secretDevelopment17:secretdev170720@core-data.quzlg.mongodb.net/data"
+	dbUrl: "mongodb+srv://secretDevelopment17:secretdev170720@core-database.quzlg.mongodb.net/data"
 })
 client.cases = Math.random(1000).toString(36).substr(2, 8);
 

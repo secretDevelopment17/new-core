@@ -234,7 +234,8 @@ client.on("guildMemberAdd", async (member) => {
 				  `> Channel: ${message.channel}`,
 				  `> Author: <@!${message.member.id}> | \`${message.member.id}\``,
 				  //`${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : '\u200B'}`
-			  ]);
+			  ])
+			  .setTimestamp()
 		  if (message.content.length) {
 			  embed.addField(`> Content:`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
 		  }
@@ -259,7 +260,8 @@ client.on("guildMemberAdd", async (member) => {
 				  `> Author: <@!${old.author.id}> | \`${old.author.id}\``
 			  ])
 		.addField("> Before:", `\`\`\`${old.content}\`\`\``)
-		.addField("> After:", `\`\`\`${message.content}\`\`\``)  
+		.addField("> After:", `\`\`\`${message.content}\`\`\``)
+		.setTimestamp()  
   
 		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
 		  if (channel) channel.send(embed);
@@ -280,11 +282,11 @@ client.on("guildMemberAdd", async (member) => {
 				message.channel.messages.fetch(a).then(msg => msg.delete({ timeout: 1000 }));
 				let links = new Discord.MessageEmbed()
 					.setColor('#E7A700')
-					.setTitle(`⚠ This link is DANGEROUS ⚠`)
+					.setTitle(`⚠ Malicious link detected ⚠`)
 					.setDescription(`${message.author}`)
 					.setFooter("This filter is in beta. False negatives are possible but very rare. If you got this warning be careful of the link");
 
-				message.reply(links).catch(err => {
+				message.reply(`${message.author}`).then(x => x.send(links)).catch(err => {
 					message.reply("An error occured");
 				});
 				j++;

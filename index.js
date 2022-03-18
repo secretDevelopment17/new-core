@@ -238,7 +238,7 @@ client.on("guildMemberAdd", async (member) => {
 			  embed.addField(`> Content:`, `\`\`\`${message.content !== undefined ? message.content : "This message is not have any content"}\`\`\``);
 		  }
 		  if (attachments) {
-			  embed.setImage(attachment);
+			  embed.setImage(attachments);
 		  }
   
 		  const channel = message.guild.channels.cache.find(ch => ch.name === '🚫┇automod');
@@ -252,13 +252,12 @@ client.on("guildMemberAdd", async (member) => {
   
 		  const embed = new Discord.MessageEmbed()
 			  .setColor('#2f3136')
-			  .setAuthor(`New Message Update`, `https://cdn.discordapp.com/emojis/737554516999929867.gif?size=32&quality=lossless`)
+			  .setAuthor(`New Message Update`, old.url, `https://cdn.discordapp.com/emojis/737554516999929867.gif?size=32&quality=lossless`)
 			  .setDescription([
 				  `> Message ID: \`${old.id}\``,
 				  `> Channel: ${old.channel}`,
 				  `> Author: ${old.author.tag} | \`${old.author.id}\``
 			  ])
-			  .setURL(old.url)
 		.addField("> Before:", `\`\`\`${old.content}\`\`\``)
 		.addField("> After:", `\`\`\`${message.content}\`\`\``)  
   

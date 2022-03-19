@@ -20,7 +20,7 @@ app.get("/case", function (req, res) {
     res.send(bot.mongo.list("case"))
 });
 
-app.set('json spaces', 2);
+//app.set('json spaces', 2);
 app.listen(process.env.PORT || 3000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });

@@ -1,11 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const { KeyMongo } = require("key-mongo");
-const mongo = new KeyMongo({
-	dbName: "data",
-	dbUrl: "mongodb+srv://secretDevelopment17:secretdev170720@core-database.quzlg.mongodb.net/data"
-});
+const bot = require("./index.js");
 const PORT = 3000;
 
 app.use(express.static('public'));
@@ -21,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/case", function (req, res) {
-    res.send(mongo.list("case"))
+    res.send(bot.mongo.list("case"))
 });
 
 app.set('json spaces', 2);

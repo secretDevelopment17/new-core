@@ -3,6 +3,7 @@ const db = require("quick.db")
 
 exports.run = async (client, message, args) => {
     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+    if (!user) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a user to unmute.`).setColor("RED"))
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
     let muted = await client.mongo.get(`isMuted`, user.id)
     if (!muted) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | Sorry, but <@${user.id}> is not muted.`).setColor("RED"))

@@ -18,6 +18,7 @@ const { WebhookClient } = require("discord.js");
 const welcomeHook = new WebhookClient("954181221800374282", "uMTA4hjNA9zItLJ95D-fveOtyLu5qnPCY8BAUenqmq_Of8ufuDAw8zhodvfCHakeg8MV");
 const bot = client
 const { KeyMongo } = require("key-mongo")
+require("./server.js");
 
 client.commands = new Discord.Collection()
 client.aliases = new Discord.Collection()

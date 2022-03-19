@@ -413,7 +413,7 @@ client.on("message", async (message) => {
           .setDescription([			  		
 			`> Message ID: \`${message.id}\``,
 			`> Channel: ${message.channel}`,
-            `> Author: <@!${author.id}> | \`${author.id}\``,			
+            `> Author: ${member} | \`${member.id}\``,			
           ])
           .addField("> Content:", `|| ${message.content} ||`)
 		  .setFooter(`Don't try to open it`)
@@ -510,6 +510,26 @@ client.on("message", async (message) => {
             .setFooter(`If this is a mistake, please DM our staff`)
             .setTimestamp();
 
+			const embed = new Discord.MessageEmbed()
+			.setColor("#2f3136")
+			.setAuthor(
+			  `Malicious link detected`,
+			  `https://cdn.discordapp.com/emojis/590433107111313410.gif`
+			)
+			.setDescription([			  		
+			  `> Message ID: \`${message.id}\``,
+			  `> Channel: ${message.channel}`,
+			  `> Author: ${member} | \`${member.id}\``,			
+			])
+			.addField("> Content:", `|| ${message.content} ||`)
+			.setFooter(`Don't try to open it`)
+			.setTimestamp();
+  
+  
+		  const channel = message.guild.channels.cache.find(
+			(ch) => ch.name === "🚫┇automod"
+		  );
+		  if (channel) channel.send(embed);	
           message.member.roles.add("954378331401367572");
           client.users.cache.get(member.id).send(userEmbed);
           db.set(`isMuted.${message.author.id}`, true);
@@ -553,7 +573,7 @@ app.use((req, res, next) => {
 
 app.get("/case", async function (req, res) {
   const data = await client.mongo.list("case");
-  res.send(data[0]);
+  res.send(data);
 });
 
 app.set("json spaces", 2);

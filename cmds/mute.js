@@ -3,6 +3,7 @@ const db = require("quick.db")
 
 exports.run = async (client, message, args) => {
     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+    if (!user) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a user to mute.`).setColor("RED"))
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
     if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | I can't find \`Muted\` role in this guild`).setColor("RED"))
     let reason = args.slice(1).join(" ")
@@ -19,7 +20,7 @@ exports.run = async (client, message, args) => {
     .setTimestamp();
 
     user.roles.add(muteRole)
-    bot.mongo.set(`isMuted`, user.user.id, true);
+    bot.mongo.set(`isMuted`, user.id, true);
     client.channels.cache.get(client.config.modsChannel).send(embed)
     bot.mongo.set("case", bot.cases, {
       user: member.id,

@@ -377,6 +377,8 @@ client.on("guildMemberAdd", async (member) => {
 					bot.channels.cache.get(bot.config.modsChannel).send(logsLink)
 					bot.mongo.set("case", bot.cases, {
 						user: member.id,
+						tag: member.tag,
+						type: "Auto-Mute",
 						moderator: author.id,
 						reason: reason
 					})

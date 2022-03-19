@@ -23,6 +23,8 @@ exports.run = async (client, message, args) => {
     client.channels.cache.get(client.config.modsChannel).send(embed)
     bot.mongo.set("case", bot.cases, {
       user: member.id,
+      tag: member.user.tag,
+      type: "Mute",
       moderator: author.id,
       reason: reason
     })

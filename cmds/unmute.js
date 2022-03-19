@@ -4,9 +4,9 @@ const db = require("quick.db")
 exports.run = async (client, message, args) => {
     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
-    let muted = await db.fetch(`isMuted.${user.id}`)
-    if (!muted) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:890560104603189288> | Sorry, but <@${user.id}> is not muted.`).setColor("RED"))
-    if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:890560104603189288> | I can't find \`Muted\` role in this guild`).setColor("RED"))
+    let muted = await client.mongo.get(`isMuted`, user.user.id)
+    if (!muted) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | Sorry, but <@${user.id}> is not muted.`).setColor("RED"))
+    if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | I can't find \`Muted\` role in this guild`).setColor("RED"))
     
     let embed = new Discord.MessageEmbed()
     .setColor("GREEN")
@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
     user.roles.remove(muteRole)
     client.channels.cache.get(client.config.modsChannel).send(embed)
     bot.mongo.delete(`isMuted`, user.user.id);
-    message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:890559630525202432> | <@${user.id}> has been unmuted.`).setColor("GREEN"))
+    message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:954773528153059350> | <@${user.id}> has been unmuted.`).setColor("GREEN"))
     
   }
   

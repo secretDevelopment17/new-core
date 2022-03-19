@@ -226,7 +226,7 @@ client.on("guildMemberAdd", async (member) => {
   welcomeHook.send(embed);
   member.send({ embed: memberEmbed, components: [row] });
   member.roles.add("954181940381098014");
-  if (db.has(`isMuted.${member.user.id}`))
+  if (bot.mongo.has(`isMuted`, member.id))
     member.roles.add("954378331401367572");
 });
 
@@ -426,7 +426,7 @@ client.on("message", async (message) => {
         if (channel) channel.send(embed);
         message.member.roles.add("954378331401367572");
         client.users.cache.get(member.id).send(userEmbed);
-        db.set(`isMuted.${message.author.id}`, true);
+		bot.mongo.set(`isMuted`, member.id, true);
         bot.channels.cache.get(bot.config.modsChannel).send(logsLink);
         bot.mongo.set("case", bot.cases, {
           user: member.id,
@@ -532,7 +532,7 @@ client.on("message", async (message) => {
 		  if (channel) channel.send(embed);	
           message.member.roles.add("954378331401367572");
           client.users.cache.get(member.id).send(userEmbed);
-          db.set(`isMuted.${message.author.id}`, true);
+		  bot.mongo.set(`isMuted`, member.id, true);
           bot.channels.cache.get(bot.config.modsChannel).send(logsLink);
           bot.mongo.set("case", bot.cases, {
             user: member.id,
@@ -575,6 +575,11 @@ app.get("/case", async function (req, res) {
   const data = await client.mongo.list("case");
   res.send(data);
 });
+
+app.get("/ismuted", async function (req, res) {
+	const data = await client.mongo.list("isMuted");
+	res.send(data);
+  });
 
 app.set("json spaces", 2);
 app.listen(process.env.PORT || 3000, function () {

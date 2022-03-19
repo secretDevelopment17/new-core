@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
     .setTimestamp();
 
     user.roles.add(muteRole)
-    db.set(`isMuted.${members.user.id}`, true);
+    bot.mongo.set(`isMuted`, user.user.id, true);
     client.channels.cache.get(client.config.modsChannel).send(embed)
     bot.mongo.set("case", bot.cases, {
       user: member.id,

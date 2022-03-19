@@ -409,12 +409,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/case", function (req, res) {
-    let arr = (async() => {
-		const data = await client.mongo.list("case");
-		return data[0]
-		})()
-    res.send(arr)
+app.get("/case", async function (req, res) {
+	const data = await client.mongo.list("case")
+    res.send(data[0])
 });
 
 app.set('json spaces', 2);

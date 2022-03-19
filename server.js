@@ -6,6 +6,7 @@ const mongo = new KeyMongo({
 	dbName: "data",
 	dbUrl: "mongodb+srv://secretDevelopment17:secretdev170720@core-database.quzlg.mongodb.net/data"
 });
+const PORT = 3000;
 
 app.use(express.static('public'));
 
@@ -23,4 +24,7 @@ app.get("/case", function (req, res) {
     res.send(mongo.list("case"))
 });
 
-app.set('json spaces', 2);  
+app.set('json spaces', 2);
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`)
+});

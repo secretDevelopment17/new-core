@@ -470,7 +470,7 @@ client.on("message", async (message) => {
               "The link sent may be a malicious link. I will try to prevent, don't try to open it"
             );
 
-          const author = `${client.user}`;
+          const author = `${client.user.id}`;
           const reason = `Posted malicious link detected`;
           let member = message.author;
           let logsLink = new Discord.MessageEmbed()
@@ -538,7 +538,7 @@ client.on("message", async (message) => {
             user: member.id,
             tag: member.tag,
             type: "Auto-Mute",
-            moderator: author.id,
+            moderator: author,
             reason: reason,
           });
           message.channel

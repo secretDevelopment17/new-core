@@ -37,7 +37,7 @@ exports.run = async (client, message, args) => {
     user.roles.remove(muteRole)
     user.send(userEmbed)
     client.channels.cache.get(client.config.modsChannel).send(embed)
-    bot.mongo.delete(`isMuted`, user.id);
+    client.mongo.delete(`isMuted`, user.id);
     message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:954773528153059350> | <@${user.id}> has been unmuted.`).setColor("GREEN"))
     
   }

@@ -36,9 +36,9 @@ exports.run = async (client, message, args) => {
 
     user.roles.add(muteRole)
     user.send(userEmbed)
-    bot.mongo.set(`isMuted`, user.id, true);
+    client.mongo.set(`isMuted`, user.id, true);
     client.channels.cache.get(client.config.modsChannel).send(embed)
-    bot.mongo.set("case", bot.cases, {
+    client.mongo.set("case", client.cases, {
       user: member.id,
       tag: member.user.tag,
       type: "Mute",

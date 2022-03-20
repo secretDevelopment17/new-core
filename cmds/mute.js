@@ -39,8 +39,8 @@ exports.run = async (client, message, args) => {
     client.mongo.set(`isMuted`, user.id, true);
     client.channels.cache.get(client.config.modsChannel).send(embed)
     client.mongo.set("case", client.cases, {
-      user: member.id,
-      tag: member.user.tag,
+      user: user.id,
+      tag: user.user.tag,
       type: "Mute",
       moderator: author.id,
       reason: reason

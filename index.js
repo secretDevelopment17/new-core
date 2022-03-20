@@ -226,7 +226,7 @@ client.on("guildMemberAdd", async (member) => {
   welcomeHook.send(embed);
   member.send({ embed: memberEmbed, components: [row] });
   member.roles.add("954181940381098014");
-  if ((await bot.mongo.has("isMuted", member.id))) return member.roles.add("954378331401367572");
+  if ((await bot.mongo.has("isMuted", member.id))) return member.roles.add("954378331401367572").then(() => message.channel.send(new Discord.MessageEmbed().setDescription(`<:Error:575148612166746112> | ${member.user} was trying to enter the server, but I've handled them (\`MUTED\`)`).setColor("RED")));
 });
 
 // 🟨 ===== Member Leave ===== 🟨
@@ -425,7 +425,7 @@ client.on("message", async (message) => {
         if (channel) channel.send(embed);
         message.member.roles.add("954378331401367572");
         client.users.cache.get(member.id).send(userEmbed);
-		bot.mongo.set(`isMuted`, member.id, true);
+		    bot.mongo.set(`isMuted`, member.id, true);
         bot.channels.cache.get(bot.config.modsChannel).send(logsLink);
         bot.mongo.set("case", bot.cases, {
           user: member.id,

@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     let muted = await client.mongo.get(`isMuted`, user.id)
     if (!muted) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | Sorry, but <@${user.id}> is not muted.`).setColor("RED"))
     if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | I can't find \`Muted\` role in this guild`).setColor("RED"))
-    let reason = args.slice(1).join(" ")
+    let reason = args[1]
     if (!reason) reason = "No reason specified."
 
     let embed = new Discord.MessageEmbed()

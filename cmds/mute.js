@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
     if (!user) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a user to mute.`).setColor("RED"))
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
     if (!muteRole) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | I can't find \`Muted\` role in this guild`).setColor("RED"))
-    let reason = args.slice(1).join(" ")
+    let reason = args[1]
     if (reason) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a reason for muting this user.`).setColor("RED"))
 
     let embed = new Discord.MessageEmbed()

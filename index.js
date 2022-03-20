@@ -226,7 +226,7 @@ client.on("guildMemberAdd", async (member) => {
   welcomeHook.send(embed);
   member.send({ embed: memberEmbed, components: [row] });
   member.roles.add("954181940381098014");
-  if (bot.mongo.has(`isMuted`, member.id))
+  if (bot.mongo.has(`isMuted`, member.id) === true)
     member.roles.add("954378331401367572");
 });
 

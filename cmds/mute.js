@@ -10,16 +10,32 @@ exports.run = async (client, message, args) => {
     if (reason) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a reason for muting this user.`).setColor("RED"))
 
     let embed = new Discord.MessageEmbed()
-    .setColor("RED")
-    .setAuthor(`Muted User | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
-    .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
-    .addField("**Warned User**", `${user} | \`${user.id}\``)
-    .addField("**Moderator**", `${message.author} | \`${message.author.id}\``)
-    .addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
-    .addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
-    .setTimestamp();
+      .setColor("RED")
+      .setAuthor(`Muted User | Case ${client.cases}`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
+      .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
+      .addField("**Muted User**", `${user} | \`${user.id}\``)
+      .addField("**Moderator**", `${message.author} | \`${message.author.id}\``)
+      .addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)
+      .addField("**Timestamp**", `**\`\`\`css\n${new Date(message.createdTimestamp).toString()}\n\`\`\`**`)
+      .setTimestamp();
+
+      const userEmbed = new Discord.MessageEmbed()
+        .setAuthor(
+          `${message.guild.name} Muted User | Case ${client.cases}`,
+          message.guild.iconURL()
+        )
+        .setColor("#2f3136")
+        .setDescription(
+          `You has been muted on **${message.guild.name}**`
+        )
+        .addField("Reason", `\`\`\`${reason}\`\`\``)
+        .addField("Moderator", `${message.author} | \`${message.author.id}\``)
+        .setFooter(`If this is a mistake, please DM our staff`)
+        .setTimestamp();
+
 
     user.roles.add(muteRole)
+    user.send(userEmbed)
     bot.mongo.set(`isMuted`, user.id, true);
     client.channels.cache.get(client.config.modsChannel).send(embed)
     bot.mongo.set("case", bot.cases, {

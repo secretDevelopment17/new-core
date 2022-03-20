@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
       user: user.id,
       tag: user.user.tag,
       type: "Mute",
-      moderator: author.id,
+      moderator: message.author.id,
       reason: reason
     })
     message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:954773528153059350> | <@${user.id}> has been muted.`).setColor("GREEN"))

@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 
     let embed = new Discord.MessageEmbed()
       .setColor("GREEN")
-      .setAuthor(`Unmuted User`, `https://cdn.discordapp.com/emojis/742191092652310578.png?v=1`)
+      .setAuthor(`Unmuted User`, `https://cdn.discordapp.com/emojis/742191092069433425.png`)
       .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
       .addField("**Unmuted User**", `${user} | \`${user.id}\``)
       .addField("**Moderator**", `${message.author} | \`${message.author.id}\``)

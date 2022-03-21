@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
       let name = args.slice(1).join(" ");
       let tag = await client.mongo.has(`tag`, name);
       let response = args.slice(2).join("");
-      if (!tag)
+      if (!tag === true)
         return message.channel.send(
           new Discord.MessageEmbed()
             .setDescription(
@@ -63,8 +63,8 @@ exports.run = async (client, message, args) => {
       );
     } else {
       let name = args.slice(1).join(" ");
-      let tag = await client.mongo.get(`tag`, name);
-      if (!tag)
+      let tag = await client.mongo.has(`tag`, name);
+      if (!tag === false)
         return message.channel.send(
           new Discord.MessageEmbed()
             .setDescription(

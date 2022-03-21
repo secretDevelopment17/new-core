@@ -83,7 +83,7 @@ exports.run = async (client, message, args) => {
       );
     }
   } else {
-    if (!args[1]) {
+    if (!args[0]) {
       message.channel.send(
         new Discord.MessageEmbed()
           .setDescription(
@@ -92,7 +92,7 @@ exports.run = async (client, message, args) => {
           .setColor("RED")
       );
     } else {
-      let name = args.slice(1).join(" ");
+      let name = args[0];
       let tag = await client.mongo.get(`tag`, name);
       if (!tag)
         return message.channel.send(

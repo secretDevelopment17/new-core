@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
       let name = args.slice(1).join(" ");
       let tag = await client.mongo.has(`tag`, name);
       let response = args.slice(2).join("");
-      if (!tag === true)
+      if (tag)
         return message.channel.send(
           new Discord.MessageEmbed()
             .setDescription(

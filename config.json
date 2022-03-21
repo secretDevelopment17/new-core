@@ -3,5 +3,12 @@
   "prefix" : "-",
   "everyoneMention": true,
   "hostedBy": true,
-  "modsChannel": "954396398617501726"
+  "modsChannel": "954396398617501726",
+  "COOLDOWN_PER_USER": 5000,
+  "MAX_TIKTOKS_PER_MESSAGE": 5,
+  "DB_PATH": "database.json",
+  "USE_DATABASE": true,
+  "STORE_THUMBNAILS": true,
+  "EMBED_TWITTER_VIDEO": false,
+  "BOOSTED_CHANNEL_ID": ""
 }

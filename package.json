@@ -20,7 +20,8 @@
     "quick.db": "^7.1.3",
     "line-reader": "^0.4.0",
     "node-virustotal": "^3.35.0",
-    "key-mongo": "https://github.com/noxzym/key-mongo"
+    "key-mongo": "https://github.com/noxzym/key-mongo",
+    "tiktok-scraper": "^1.4.36"
   },
   "engines": {
     "node": "16.x"

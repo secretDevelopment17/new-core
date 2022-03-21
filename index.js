@@ -14,6 +14,7 @@ const disbut = require("discord-buttons");
 disbut(client);
 const lineReader = require("line-reader");
 const db = require("quick.db");
+const TikTokScraper = require("tiktok-scraper");
 const { WebhookClient } = require("discord.js");
 const welcomeHook = new WebhookClient(
   "954181221800374282",
@@ -551,6 +552,49 @@ client.on("message", async (message) => {
     );
   }
 });
+
+let scrapperMsg;
+let options = {
+  _: ["video"],
+  d: true,
+  download: true,
+  asyncDownload: 5,
+  a: 5,
+  "async-download": 5,
+  filepath: __dirname + "/temp/",
+};
+
+client.on("message", async (msg) => {
+  if (msg.content.includes("https://vm.tiktok.com/")) {
+    var expression = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/gi;
+    let message = msg.content.match(expression);
+    await startScraper(message);
+    if (getFilesizeInMB(String(scrapperMsg[2])) > 8) {
+      msg.reply(
+        "Sorry the Video you asked for is bigger than 8MB, I do not support compression yet!"
+      );
+      return;
+    } else {
+      msg.delete();
+      const buffer = fs.readFileSync(String(scrapperMsg[2]));
+      const attachment = new Discord.MessageAttachment(buffer, "YourVideo.mp4");
+      msg.reply(attachment);
+    }
+  }
+});
+
+const startScraper = async (link) => {
+  try {
+    const scraper = await TikTokScraper["video"](link, options);
+    if (scraper.message) {
+      console.log(scraper.message);
+      scrapperMsg = scraper.message.split(" ");
+    }
+  } catch (error) {
+    console.error(error.message);
+    console.error(error);
+  }
+};
 
 client.login(config.token);
 

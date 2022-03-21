@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
       );
     } else {
       let name = args.slice(1).join(" ");
-      let tag = await client.mongo.get(`tag`, name);
+      let tag = await client.mongo.has(`tag`, name);
       let response = args.slice(2).join("");
       if (!tag)
         return message.channel.send(
@@ -41,6 +41,7 @@ exports.run = async (client, message, args) => {
 
       await client.mongo.set(`tag`, name, {
         author: message.author.id,
+        name: name,
         response: response,
       });
       message.channel.send(

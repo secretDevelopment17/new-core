@@ -577,7 +577,7 @@ client.on('message', async message => {
       if (/(www\.tiktok\.com)|(vm\.tiktok\.com)/.test(url)) {
           cooldown_users.add(message.author.id);
           found_match = true;
-          message.channel.sendTyping().catch(console.error)
+          message.channel.startTyping().catch(console.error)
 
           TikTokScraper.getVideoMeta(url).then(tt_response =>
               axios.get(tt_response.collector[0].videoUrl, {responseType: 'arraybuffer', headers: tt_response.headers}).then(axios_response => {

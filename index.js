@@ -579,7 +579,12 @@ app.get("/case", async function (req, res) {
 app.get("/ismuted", async function (req, res) {
 	const data = await client.mongo.list("isMuted");
 	res.send(data);
-  });
+});
+
+app.get("/tag", async function (req, res) {
+  const data = await client.mongo.list("tag");
+  res.send(data);
+});
 
 app.set("json spaces", 2);
 app.listen(process.env.PORT || 3000, function () {

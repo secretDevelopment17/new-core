@@ -1,5 +1,4 @@
 const Discord = require("discord.js")
-const db = require("quick.db")
 
 exports.run = async (client, message, args) => {
     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])

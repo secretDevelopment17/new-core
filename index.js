@@ -228,6 +228,7 @@ client.on("guildMemberAdd", async (member) => {
   member.send({ embed: memberEmbed, components: [row] });
   member.roles.add("954181940381098014");
   if ((await bot.mongo.has("isMuted", member.id))) return member.roles.add("954378331401367572").then(() => client.channels.cache.get("954396398617501726").send(new Discord.MessageEmbed().setDescription(`<:Error:575148612166746112> | ${member.user} was trying to enter the server, but I've handled them (\`MUTED\`)`).setColor("RED")));
+  if ((await bot.mongo.has("isJail", member.id))) return member.roles.add("956904276335144970").then(() => client.channels.cache.get("954396398617501726").send(new Discord.MessageEmbed().setDescription(`<:Error:575148612166746112> | ${member.user} was trying to enter the server, but I've handled them (\`PRISON\`)`).setColor("RED")));     
 });
 
 // 🟨 ===== Member Leave ===== 🟨

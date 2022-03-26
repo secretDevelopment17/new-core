@@ -34,16 +34,17 @@ exports.run = async (client, message, args) => {
         .setFooter(`If this is a mistake, please DM our staff`)
         .setTimestamp();
 
-    user.send(userEmbed)
-    client.channels.cache.get(client.config.modsChannel).send(embed)
+    message.guild.member(user).kick(reason);    
+    user.send(userEmbed);
+    client.channels.cache.get(client.config.modsChannel).send(embed);
     client.mongo.set("case", client.cases, {
       user: user.id,
       tag: user.user.tag,
       type: "Kick",
       moderator: message.author.id,
       reason: reason
-    })
-    message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:954773528153059350> | <@${user.id}> has been kicked.`).setColor("GREEN"))
+    });
+    message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:954773528153059350> | <@${user.id}> has been kicked.`).setColor("GREEN"));
     
     
   }

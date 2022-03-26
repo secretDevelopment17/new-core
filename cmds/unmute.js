@@ -2,6 +2,9 @@ const Discord = require("discord.js")
 const db = require("quick.db")
 
 exports.run = async (client, message, args) => {
+    if(!message.member.hasPermission('MANAGE_MESSAGES') && !message.member.roles.cache.some((r) => r.name === "sudo")){
+      return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | I'm sorry but you don't have permission to do that.`).setColor("RED"));
+    }
     let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
     if (!user) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a user to unmute.`).setColor("RED"))
     let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")

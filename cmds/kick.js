@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
         .setFooter(`If this is a mistake, please DM our staff`)
         .setTimestamp();
 
-    message.guild.member(user.id).kick(reason);    
+    message.guild.member(user).kick(reason);    
     user.send(userEmbed);
     client.channels.cache.get(client.config.modsChannel).send(embed);
     client.mongo.set("case", client.cases, {

@@ -50,9 +50,9 @@ exports.run = async (client, message, args) => {
             .addField('\`Github Repository\`', `[\`https://www.github.com/${gitshort}\`](https://www.github.com/${gitshort})`)
 
         message.channel.send(embed)
-    } catch (error) {
-        if (error.status == 404) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | Package \`${query}\` not found.`).setColor("RED"));
-        console.log(error);
+    } catch (e) {
+        return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | Package \`${query}\` not found.`).setColor("RED"));
+        console.log(e.stack);
     }
 }
 

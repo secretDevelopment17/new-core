@@ -32,7 +32,7 @@ client.mongo = new KeyMongo({
     "mongodb+srv://secretDevelopment17:secretdev170720@core-database.quzlg.mongodb.net/data",
 });
 client.cases = Math.random(1000).toString(36).substr(2, 8);
-client.request = require("axios")
+client.request = require("petitio")
 
 const { GiveawaysManager } = require("discord-giveaways");
 if (!db.get("giveaways")) db.set("giveaways", []);

@@ -24,7 +24,8 @@
     "url-regex": "^5.0.0",
     "axios": "^0.26.1",
     "moment": "^2.29.1",
-    "moment-duration-format": "^2.3.2"
+    "moment-duration-format": "^2.3.2",
+    "petitio": "^1.4.0"
   },
   "engines": {
     "node": "16.x"

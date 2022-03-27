@@ -10,5 +10,6 @@
   "USE_DATABASE": true,
   "STORE_THUMBNAILS": true,
   "EMBED_TWITTER_VIDEO": false,
-  "BOOSTED_CHANNEL_ID": ""
+  "BOOSTED_CHANNEL_ID": "",
+  "EMBED_INFO": "#2f3136"
 }

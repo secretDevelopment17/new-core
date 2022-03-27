@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
     if (!query) return message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | You need to specify a Node Package Manager.`).setColor("RED"));
 
     try {
-        const body = await bot.request(`https://registry.npmjs.com/${query}`).json();
+        const body = await client.request(`https://registry.npmjs.com/${query}`).json();
         const version = body.versions[body['dist-tags'].latest];
         let deps = version.dependencies ? Object.keys(version.dependencies) : null;
         let maintainers = body.maintainers.map(user => user.name);

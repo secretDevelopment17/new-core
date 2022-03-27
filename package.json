@@ -22,7 +22,9 @@
     "node-virustotal": "^3.35.0",
     "key-mongo": "https://github.com/noxzym/key-mongo",
     "url-regex": "^5.0.0",
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2"
   },
   "engines": {
     "node": "16.x"

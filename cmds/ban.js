@@ -33,8 +33,7 @@ exports.run = async (client, message, args) => {
         .addField("Moderator", `${message.author} | \`${message.author.id}\``)
         .setFooter(`If this is a mistake, please DM our staff`)
         .setTimestamp();
-
-    message.guild.member(user).ban({ days: 0, reason: reason });    
+  
     user.send(userEmbed);
     client.channels.cache.get(client.config.modsChannel).send(embed);
     client.mongo.set("case", client.cases, {
@@ -44,6 +43,7 @@ exports.run = async (client, message, args) => {
       moderator: message.author.id,
       reason: reason
     });
+    message.guild.member(user).ban({ days: 0, reason: reason });  
     message.channel.send(new Discord.MessageEmbed().setDescription(`<a:yes:954773528153059350> | <@${user.id}> has been banned.`).setColor("GREEN"));
     
     

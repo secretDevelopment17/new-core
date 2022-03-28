@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
         }
 
         await message.channel.bulkDelete(deleteAmount, true);
-        await message.channel.send(new MessageEmbed().setDescription(`<a:yes:954773528153059350> | Deleted **${deleteAmount}** chats`)).then(message => message.delete({timeout: 5000}))
+        await message.channel.send(new MessageEmbed().setDescription(`<a:yes:954773528153059350> | Deleted **${deleteAmount}** chats`).setColor("GREEN")).then(message => message.delete({timeout: 5000}))
 
     }
 

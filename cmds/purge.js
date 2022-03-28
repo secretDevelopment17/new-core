@@ -13,7 +13,9 @@ exports.run = async (client, message, args) => {
         .setColor("RED")
     );
   }
-  if (!args[0])
+
+  let amount = parseInt(args[0]);
+  if (amount)
     return message.channel.send(
       new Discord.MessageEmbed()
         .setDescription(
@@ -21,7 +23,7 @@ exports.run = async (client, message, args) => {
         )
         .setColor("RED")
     );
-  message.channel.bulkDelete(args[0]).then(() => {
+  message.channel.bulkDelete(amount).then(() => {
     message.channel
       .send(
         new Discord.MessageEmbed()
@@ -36,5 +38,5 @@ exports.run = async (client, message, args) => {
 
 exports.help = {
   name: "purge",
-  aliases: [],
+  aliases: ["clear"],
 };

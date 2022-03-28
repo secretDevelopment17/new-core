@@ -137,11 +137,23 @@ client.on("ready", () => {
   );
 
   setInterval(() => {
+    const status = [
+      `VALORANT`,
+      `Counter-Strike: Global Offensive`,
+      `Apex Legends`,
+      `Fortnite`,
+      `PUBG`,
+      `Overwatch`,
+      `League of Legends`,
+      `Minecraft`,   
+      `Grand Theft Auto V`   
+    ];     
+    let random = Math.floor(Math.random() * status.length)
     client.user.setPresence({
-      activity: { name: "VALORANT", type: "PLAYING" },
+      activity: { name: status[random], type: "PLAYING" },
       status: "online",
     });
-  }, 5000);
+  }, 10000);
 });
 
 client.on("message", async (message) => {

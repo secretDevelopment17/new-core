@@ -234,6 +234,15 @@ client.on("guildMemberAdd", async (member) => {
     .setColor("GREEN")
     .setDescription(`<a:Join:593588419087695872> | ${welcomer[random]}`);
 
+  const newInvites = await member.guild.invites.fetch()
+  const oldInvites = invites.get(member.guild.id);
+  const invite = newInvites.find(i => i.uses > oldInvites.get(i.code));
+  const inviter = await client.users.fetch(invite.inviter.id);
+  const logChannel = member.guild.channels.cache.find(channel => channel.name === "🔎┇invites");
+  inviter
+    ? logChannel.send(`**${member.user.tag}** joined using invite code \`${invite.code}\` from **${inviter.tag}**. Invite was used \`${invite.uses}\` times since its creation.`)
+    : logChannel.send(`**${member.user.tag}** joined but I couldn't find through which invite.`);
+
   client.channels.cache.get("954176559332327494").send(logsEmbed);
   ch.setName(`Total Member : ${member.guild.memberCount}`);
   welcomeHook.send(embed);

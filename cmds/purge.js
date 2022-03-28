@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
   }
 
   let amount = args[0];
-  if (amount)
+  if (!amount)
     return message.channel.send(
       new Discord.MessageEmbed()
         .setDescription(

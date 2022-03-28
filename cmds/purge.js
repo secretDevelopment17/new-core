@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
     );
   }
 
-  let amount = parseInt(args[0]);
+  let amount = args[0];
   if (amount)
     return message.channel.send(
       new Discord.MessageEmbed()
@@ -23,7 +23,15 @@ exports.run = async (client, message, args) => {
         )
         .setColor("RED")
     );
-  message.channel.bulkDelete(amount).then(() => {
+  if (isNaN(amount))
+    return message.channel.send(
+      new Discord.MessageEmbed()
+        .setDescription(
+          `<a:no:954773357407113298> | You must provide a number.`
+        )
+        .setColor("RED")
+    );
+  message.channel.messages.channel.bulkDelete(amount).then(() => {
     message.channel
       .send(
         new Discord.MessageEmbed()

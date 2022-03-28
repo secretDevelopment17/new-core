@@ -153,7 +153,7 @@ client.on("ready", () => {
       activity: { name: status[random], type: "PLAYING" },
       status: "online",
     });
-  }, 10000);
+  }, 60000);
 });
 
 client.on("message", async (message) => {
@@ -234,7 +234,7 @@ client.on("guildMemberAdd", async (member) => {
     .setColor("GREEN")
     .setDescription(`<a:Join:593588419087695872> | ${welcomer[random]}`);
 
-  const newInvites = await member.guild.invites.fetch()
+  const newInvites = await member.guild.fetchInvites()
   const oldInvites = invites.get(member.guild.id);
   const invite = newInvites.find(i => i.uses > oldInvites.get(i.code));
   const inviter = await client.users.fetch(invite.inviter.id);

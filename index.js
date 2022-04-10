@@ -750,7 +750,7 @@ client.on("message", async (message) => {
     }
 
     if (oldID) {
-      if (oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channelID === oldID).first() === undefined) {
+      if (oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channel.id === oldID).first() === undefined) {
         if (!oldState.channel.members.size && oldState.channel.parent === "954173179042091030") return oldState.channel.delete();
       }
 
@@ -774,7 +774,7 @@ client.on("message", async (message) => {
 
           if (voiceData.privateID !== null) oldState.guild.channels.cache.get(voiceData.privateID).delete();
 
-          return oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channelID === oldID).first().jtcVoice = null;
+          return oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channel.id === oldID).first().jtcVoice = null;
         }
       }
     }

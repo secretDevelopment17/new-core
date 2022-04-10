@@ -567,217 +567,61 @@ client.on("message", async (message) => {
 });
 
   // 🟨 ===== Auto Voice Channels ===== 🟨
-  client.on('voiceStateUpdate', (oldState, newState) => {
-    const oldID = oldState.channel ? oldState.channel.id : undefined;
-    const newID = newState.channel ? newState.channel.id : undefined;
+  var WhitelistedChannels = ["➕┇Create Voice", "🔈┇voice-setting"]
 
-    let hasReact = false;
-
-    const jtcMessage = newState.guild.channels.cache.get("962511679009226792");
-
-    if (newID) {
-      if (newID === "954173179042091032") {
-        if (newState.member.user.bot) return;
-
-        if (newState.member.jtcVoice !== null) {
-          const voiceChannel = newState.guild.channels.cache.get(newState.member.jtcVoice.channelID);
-
-          return newState.setChannel(voiceChannel);
-        } else if (newState.guild.channels.cache.filter(ch => ch.type === "voice" && ch.name.startsWith(`${newState.member.user.username}'s Room`)).first() !== undefined) {
-          const voiceChannel = newState.guild.channels.cache.filter(ch => ch.type === "voice" && ch.name.startsWith(`${newState.member.user.username}'s Room`)).first();
-          
-          return newState.setChannel(voiceChannel).then(() => {
-            return newState.member.jtcVoice = {
-              ownerID: newState.member.user.id,
-              channelID: voiceChannel.id,
-              privateID: null,
-              block: []
-            };
-          });
-        }
-
-        return newState.guild.channels.create(`${newState.member.user.username}'s Room`, {
-          type: "voice",
-          parent: "954173179042091030",
-          userLimit: 5,
-          permissionOverwrites: [
-            {
-              allow: ["CONNECT"],
-              id: "954173497222004836"
-            }, {
-              deny: ["CONNECT"],
-              id: "954378331401367572"
-            }, {
-              allow: ["CONNECT"],
-              id: newState.member.user.id
-            }, {
-              allow: ["CONNECT"],
-              id: "733684454027034685"
-            }, {
-              deny: ["VIEW_CHANNEL"],
-              id: "956904276335144970"
-            }
-          ]
-        }).then(ch => {
-          return newState.setChannel(ch).then(() => {
-            return newState.member.jtcVoice = {
-              ownerID: newState.member.user.id,
-              channelID: ch.id,
-              privateID: null,
-              block: []
-            };
-          });
-        });
-      }
-
-      if (newState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.privateID === newID).first() !== undefined) {
-        const privateData = newState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.privateID === newID).first().jtcVoice;
-
-        if (newID === privateData.privateID) {
-          if (newState.member.user.bot) return;
-
-          const voiceChannel = newState.guild.channels.cache.get(privateData.channelID);
-          
-          if (newState.member.user.id === privateData.ownerID) return newState.setChannel(voiceChannel);
-
-          if (voiceChannel.full && !newState.member.permissions.has("MOVE_MEMBERS")) return jtcMessage.send(
-            `${newState.member} Sorry, but **Voice Channel** has been **\`Fully\`**, please try again later!`
-          ).then(m => newState.kick().then(() => m.delete({ timeout: 2500 })));
-
-          const blockUser = privateData.block;
-
-          if (blockUser.includes(newState.member.user.id)) return jtcMessage.send(
-            `${newState.member} Sorry, you now has been **\`Blocked\`** from **Voice Channels**.`
-          ).then(m => newState.kick().then(() => m.delete({ timeout: 2500 })));
-
-          const text = `
-<@${privateData.ownerID}>, ${newState.member.user} want to join you'r channel:
-<:Accept:569348261152948234> | React this to **Allow** him.
-<:Error:575148612166746112> | React this to **Block** future request from him.
-<:Declined:569348357781192704> | React this to **Deny** him.
-`;
-          if (jtcMessage.reactCollector) return;
-
-          jtcMessage.reactCollector = true;
-
-          return jtcMessage.send(text).then(m => {
-            m.react("569348261152948234").then(() => {
-              m.react("575148612166746112").then(() => {
-                m.react("569348357781192704");
-
-                // Allowed for user on JTC Private
-                m.createReactionCollector((reaction, user) => {
-                  return reaction.emoji.id === "569348261152948234" && user.id === privateData.ownerID;
-                }, { time: 60000 }).on("collect", () => {
-                  voiceChannel.updateOverwrite(newState.member.user.id, { CONNECT: true }).then(ch => newState.setChannel(ch));
-
-                  hasReact = true;
-
-                  jtcMessage.reactCollector = false;
-                  
-                  return m.edit(
-                    `<:Accept:569348261152948234> | ${newState.member} has been **\`Allowed\`** from **Voice Channels**.`
-                  ).then(() => m.reactions.removeAll().then(() => m.delete({ timeout: 2500 })));
-                }).on("end", () => {
-                  if (hasReact) return;
-
-                  newState.kick();
-
-                  jtcMessage.reactCollector = false;
-
-                  return m.edit(
-                    "This message is no longer valid, please try again!"
-                  ).then(() => m.reactions.removeAll().then(() => m.delete({ timeout: 2500 })));
-                });
-
-                // Blocked for user on JTC Private
-                m.createReactionCollector((reaction, user) => {
-                  return reaction.emoji.id === "575148612166746112" && user.id === privateData.ownerID;
-                }, { time: 60000 }).on("collect", () => {
-                  blockUser.push(newState.member.user.id);
-
-                  hasReact = true;
-
-                  newState.kick();
-
-                  jtcMessage.reactCollector = false;
-                  
-                  return m.edit(
-                    `<:Error:575148612166746112> | ${newState.member} has been **\`Denied and Blocked\`** from **Voice Channels**.`
-                  ).then(() => m.reactions.removeAll().then(() => m.delete({ timeout: 2500 })));
-                }).on("end", () => {
-                  if (hasReact) return;
-
-                  newState.kick();
-
-                  jtcMessage.reactCollector = false;
-
-                  return m.edit(
-                    "This message is no longer valid, please try again!"
-                  ).then(() => m.reactions.removeAll().then(() => m.delete({ timeout: 2500 })));
-                });
-
-                // Denied for user on JTC Private
-                m.createReactionCollector((reaction, user) => {
-                  return reaction.emoji.id === "569348357781192704" && user.id === privateData.ownerID;
-                }, { time: 60000 }).on("collect", () => {
-                  newState.kick();
-
-                  hasReact = true;
-
-                  jtcMessage.reactCollector = false;
-
-                  return m.edit(
-                    `<:Declined:569348357781192704> | ${newState.member} has been **\`Denied\`** from **Voice Channels**.`
-                  ).then(() => m.reactions.removeAll().then(() => m.delete({ timeout: 2500 })));
-                }).on("end", () => {
-                  if (hasReact) return;
-
-                  newState.kick();
-
-                  jtcMessage.reactCollector = false;
-
-                  return m.edit(
-                    "This message is no longer valid, please try again!"
-                  ).then(() => m.reactions.removeAll().then(() => m.delete({ timeout: 2500 })));
-                });
-                
-              });
-            });
-          });
-        }
-      }
-    }
-
-    if (oldID) {
-      if (oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channelID === oldID).first() === undefined) {
-        if (!oldState.channel.members.size && oldState.channel.parent === "734919720385642586") return oldState.channel.delete();
-      }
-
-      if (oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channelID === oldID).first() !== undefined) {
-        const voiceData = oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channelID === oldID).first().jtcVoice;
-
-        const voiceChannel = oldState.guild.channels.cache.get(voiceData.channelID);
-
-        if (voiceData.privateID !== null) {
-          if (voiceChannel.members.size > 0) {
-            if (oldState.member.user.bot || oldState.member.user.id === voiceData.ownerID) return;
-            
-            voiceChannel.updateOverwrite(oldState.member.user.id, { CONNECT: false });
-
-            return;
+  function ChannelLeave(member, channel) {
+      let userCount = GetChannelUserCount(channel)
+      if (userCount == 0 && channel) {
+          if (CreatorChannels.indexOf(channel.id) < 0) {
+              channel.delete()
           }
-        }
-
-        if (!voiceChannel.members.size) {
-          voiceChannel.delete();
-
-          if (voiceData.privateID !== null) oldState.guild.channels.cache.get(voiceData.privateID).delete();
-
-          return oldState.guild.members.cache.filter(m => m.jtcVoice !== null && m.jtcVoice.channelID === oldID).first().jtcVoice = null;
-        }
       }
-    }
+  }
+  
+  function ChannelJoin(member, channel) {
+      if (CreatorChannels.indexOf(channel.id) == 0) {
+          CreateAutoChannel(member, channel)
+      }
+  }
+  
+  function GetChannelUserCount(channel) {
+      if (channel) {
+          return channel.members.reduce((acc, member) => acc + 1, 0)
+      }
+      return 0
+  }
+  
+  function CreateAutoChannel(member, channel) {
+      console.log("Creating Channel")
+      channel.clone({
+          name: `${member.displayName}'s Channel`
+      })
+      .then(newChannel => {
+          member.voice.setChannel(newChannel)
+          newChannel.overwritePermissions(
+              [
+                  {
+                      id: member.id,
+                      allow: ['MANAGE_CHANNELS']
+                  }
+              ]
+          )
+      })
+  }
+  
+  client.on("voiceStateUpdate", (oldState, newState) => {
+      if (oldState && newState) {
+          if (oldState.channelID === newState.channelID) {
+              return
+          }
+      }
+  
+      if (oldState && oldState.channelID) {
+          ChannelLeave(oldState.member, oldState.guild.channels.resolve(oldState.channelID))
+      }
+      if (newState && newState.channelID) {
+          ChannelJoin(newState.member, newState.guild.channels.resolve(newState.channelID))
+      }
   })
 
 client.login(config.token);

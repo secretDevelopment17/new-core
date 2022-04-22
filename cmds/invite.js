@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
         memberInvites.forEach(invite => index += invite.uses);
 
         let embed = new Discord.MessageEmbed()
-            .setColor("GREEN")
+            .setColor("#2f3136")
             .setFooter(message.guild.name, message.guild.iconURL())
             .setAuthor(`Invite Tracker for ${message.guild.name}`)
             .setDescription(`Information on Invites of ${member.displayName}`)

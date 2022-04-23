@@ -19,9 +19,10 @@ exports.run = async (client, message, args) => {
         let embed = new Discord.MessageEmbed()
             .setColor("#2f3136")
             .setFooter(message.guild.name, message.guild.iconURL())
-            .setAuthor(`Invite Tracker for ${message.guild.name}`)
-            .setDescription(`Information on Invites of ${member.displayName}`)
-            .addField("**No. Invited Persons**", index)
+            .setAuthor(`Invite Information for ${member.displayName}`)
+            .setDescription(`**${member.displayName}** has invited ${memberInvites.size} people to this server!\n\n**Total Uses**: ${index}\n\n**Invites**:\n${content}`)
+            .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+            .addField("Invited Persons", index)
             .addField("Invitation Codes\n\n", content);
         message.channel.send(embed);
     } catch (e) {

@@ -19,11 +19,8 @@ exports.run = async (client, message, args) => {
         let embed = new Discord.MessageEmbed()
             .setColor("#2f3136")
             .setFooter(message.guild.name, message.guild.iconURL())
-            .setAuthor(`Invite Information for ${member.displayName}`)
+            .setAuthor(`Invite Information for ${member.displayName}`, member.user.displayAvatarURL())
             .setDescription(`**${member.displayName}** has invited ${memberInvites.size} people to this server!\n\n**Total Uses**: ${index}\n\n**Invites**:\n${content}`)
-            .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-            .addField("Invited Persons", index)
-            .addField("Invitation Codes\n\n", content);
         message.channel.send(embed);
     } catch (e) {
         return message.channel.send(e.stack)

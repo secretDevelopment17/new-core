@@ -17,7 +17,10 @@ exports.run = async (client, message, args) => {
     let latency = Date.now() - start;
 
     const embed = new Discord.MessageEmbed()
-      .setAuthor(`${client.user.tag} Information`, client.user.displayAvatarURL())
+      .setAuthor(
+        `${client.user.tag} Information`,
+        client.user.displayAvatarURL()
+      )
       .setColor("#2f3136")
       .addField(
         ":earth_asia: Connected to:",
@@ -78,3 +81,36 @@ exports.help = {
   name: "stats",
   aliases: ["st", "info"],
 };
+
+function parseDur(ms) {
+  let seconds = ms / 1000;
+  let days = parseInt(seconds / 86400);
+  seconds = seconds % 86400;
+  let hours = parseInt(seconds / 3600);
+  seconds = seconds % 3600;
+  let minutes = parseInt(seconds / 60);
+  seconds = parseInt(seconds % 60);
+  let fin = [];
+  if (days) fin.push(`${days}d`);
+  if (hours) fin.push(`${hours}h`);
+  if (minutes) fin.push(`${minutes}m`);
+  fin.push(`${seconds}s`);
+  return fin.join(" ");
+}
+
+function convertMS(ms) {
+  var d, h, m, s;
+  s = Math.floor(ms / 1000);
+  m = Math.floor(s / 60);
+  s = s % 60;
+  h = Math.floor(m / 60);
+  m = m % 60;
+  d = Math.floor(h / 24);
+  h = h % 24;
+  return {
+    d: d,
+    h: h,
+    m: m,
+    s: s,
+  };
+}

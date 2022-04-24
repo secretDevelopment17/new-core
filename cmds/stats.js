@@ -9,9 +9,9 @@ exports.run = async (client, message, args) => {
     let u = convertMS(client.uptime);
     let us = convertMS(os.uptime() * 1000);
     let uptime =
-      u.d + " days " + u.h + " hours " + u.m + " minutes " + u.s + " seconds ";
+      u.d + "d " + u.h + "h " + u.m + "m " + u.s + "s ";
     let ouptime =
-      us.d + " days " + u.h + " hours " + u.m + " minutes " + u.s + " seconds ";
+      us.d + "d " + u.h + "h " + u.m + "m " + u.s + "s ";
     const b = client.readyAt;
     let start = message.createdTimestamp;
     let latency = Date.now() - start;
@@ -65,10 +65,6 @@ exports.run = async (client, message, args) => {
           `• Latency :: ${latency.toLocaleString()} ms\n` +
           `• Websockets ping :: ${client.ws.ping.toLocaleString()} ms\n` +
           `\`\`\``
-      )
-      .addField(
-        "<:computerdev:737147717020811285> Lavalink:",
-        `\`\`\`a!stats lavalink\`\`\``
       )
       .setTimestamp()
       .setFooter(`Replying to ${message.author.tag}`);

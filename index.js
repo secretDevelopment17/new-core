@@ -154,18 +154,6 @@ client.on("ready", () => {
       status: "online",
     });
   }, 60000);
-
-  setInterval(async () => {
-    let randomMeme = await bot.request(`http://api-1cak.herokuapp.com/random`).json();
-    let meme = await bot.request(`http://api-1cak.herokuapp.com/post/${randomMeme.id}`).json()
-
-    let embed = new Discord.MessageEmbed()
-    .setDescription(meme.title)
-    .setImage(meme.img)
-    .setColor("#2f3136")
-
-    client.channels.cache.get("955090726075637790").send(embed)
-  }, 1000);
 });
 
 client.on("message", async (message) => {

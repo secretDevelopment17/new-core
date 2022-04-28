@@ -131,7 +131,7 @@ fs.readdir("./cmds/", (err, files) => {
   });
 });
 
-client.on("ready", async () => {
+client.on("ready", () => {
   console.log(
     `${client.user.username}#${client.user.discriminator} has been online`
   );
@@ -155,7 +155,7 @@ client.on("ready", async () => {
     });
   }, 60000);
 
-  setInterval(() => {
+  setInterval(async () => {
     let randomMeme = await bot.request(`http://api-1cak.herokuapp.com/random`).json();
     let meme = await bot.request(`http://api-1cak.herokuapp.com/post/${randomMeme.id}`).json()
 

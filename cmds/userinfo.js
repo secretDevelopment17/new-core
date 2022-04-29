@@ -8,13 +8,14 @@ exports.run = async (client, message, args) => {
     let embed = new Discord.MessageEmbed()
     .setAuthor(`${member.displayName}'s Info`, message.guild.iconURL())
     .setColor("#2f3136")
+    .setThumbnail(member.user.displayAvatarURL({ dynamic: true, size: 1024 }))
     .addField(
         "General:",
         `\`\`\`asciidoc\n` +
           `• Username :: ${member.user.tag}\n` +
           `• ID :: ${member.id}\n` +
-          `• Created :: ${momentTz.tz(member.user.createdAt, "Asia/Jakarta").format('ddd MMM Do YYYY HH:mm:ss')} GMT+0700 (${moment(member.user.createdAt, "dd").fromNow()})\n` +
-          `• Joined :: ${momentTz.tz(member.joinedAt, "Asia/Jakarta").format('ddd MMM Do YYYY HH:mm:ss')} GMT+0700 (${moment(member.joinedAt, "dd").fromNow()})\n` +
+          `• Created :: ${momentTz.tz(member.user.createdAt, "Asia/Jakarta").format('ddd MMM Do YYYY HH:mm:ss')} GMT+0700 (Western Indonesia Time) [${moment(member.user.createdAt, "dd").fromNow()}]\n` +
+          `• Joined :: ${momentTz.tz(member.joinedAt, "Asia/Jakarta").format('ddd MMM Do YYYY HH:mm:ss')} GMT+0700 (Western Indonesia Time) [${moment(member.joinedAt, "dd").fromNow()}]\n` +
           `\`\`\``
       )
 

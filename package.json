@@ -25,6 +25,7 @@
     "axios": "^0.26.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
+    "moment-timezone": "^0.5.34",
     "petitio": "^1.4.0",
     "os": "^0.1.2",
     "cpu-stat": "^2.0.1"

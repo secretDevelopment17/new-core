@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
         `\`\`\`asciidoc\n` +
           `• Username :: ${member.user.tag}\n` +
           `• ID :: ${member.id}\n` +
-          `• Created :: (${moment(member.user.createdAt, "dd").fromNow()}), ${moment.utc(member.user.createdAt).format('dddd, MMMM Do YYYY, HH:mm:ss')}\n` +
+          `• Created :: (${moment(member.user.createdAt, "dd").fromNow()}), ${momentTz.tz(member.user.createdAt).tz("Asia/Jakarta").format('dddd, MMMM Do YYYY, HH:mm:ss')}\n` +
           `\`\`\``
       )
 

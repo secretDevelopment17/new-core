@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     let embed = new Discord.MessageEmbed()
       .setColor("RED")
       .setAuthor(`Kicked User | Case ${client.cases}`, `https://media.discordapp.net/attachments/954184065400070214/957160909762084904/582419079336558601.png`)
-      .setThumbnail(`${message.author.displayAvatarURL({ dynamic: true, size: 4096 })}`)
+      .setThumbnail(`${user.displayAvatarURL({ dynamic: true, size: 4096 })}`)
       .addField("**Kicked User**", `${user} | \`${user.id}\``)
       .addField("**Moderator**", `${message.author} | \`${message.author.id}\``)
       .addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)

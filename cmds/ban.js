@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     let embed = new Discord.MessageEmbed()
       .setColor("RED")
       .setAuthor(`Banned User | Case ${client.cases}`, `https://media.discordapp.net/attachments/575097325945618432/957614662587920414/3426444.png`)
-      .setThumbnail(`${user.displayAvatarURL({ dynamic: true, size: 4096 })}`)
+      .setThumbnail(`${user.user.displayAvatarURL({ dynamic: true, size: 4096 })}`)
       .addField("**Banned User**", `${user} | \`${user.id}\``)
       .addField("**Moderator**", `${message.author} | \`${message.author.id}\``)
       .addField("**Reason**", `\`\`\`\n${reason}\n\`\`\``)

@@ -29,7 +29,8 @@ client.config = require("./config.json");
 client.mongo = new KeyMongo({
   dbName: "data",
   dbUrl:
-    "mongodb+srv://secretDevelopment17:secretdev170720@core-database.quzlg.mongodb.net/data",
+    "mongodb+srv://athx:athx123@coredata.xyliwmo.mongodb.net/?retryWrites=true&w=majority",
+  collectionName: "core"
 });
 client.cases = Math.random(1000).toString(36).substr(2, 8);
 client.request = require("petitio")
@@ -226,7 +227,7 @@ client.on("guildMemberAdd", async (member) => {
       .setLabel("Read our rules")
       .setStyle("url")
       .setURL(
-        "https://discord.com/channels/954173179042091028/954175757259788328"
+        "https://discord.com/channels/954173179042091028/954175101371301960"
       )
   );
 
@@ -568,6 +569,7 @@ client.on("message", async (message) => {
 
 client.login(config.token);
 
+/*
 const http = require("http");
 const express = require("express");
 const app = express();
@@ -606,4 +608,4 @@ app.listen(process.env.PORT || 3000, function () {
     this.address().port,
     app.settings.env
   );
-});
+});*/

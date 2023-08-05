@@ -25,7 +25,7 @@ const start = Date.now();
   } else if (client.ws.ping >= "300") {
     embed.setColor("#f70505");
   }
-  msgs.edit(embed);
+  msgs.edit(" ", embed);
 
 }
 exports.help = {

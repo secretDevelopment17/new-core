@@ -4,6 +4,7 @@
   "everyoneMention": true,
   "hostedBy": true,
   "modsChannel": "954396398617501726",
+  "rulesChannel": "954175101371301960",
   "COOLDOWN_PER_USER": 5000,
   "MAX_TIKTOKS_PER_MESSAGE": 5,
   "DB_PATH": "database.json",

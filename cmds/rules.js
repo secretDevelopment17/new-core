@@ -13,22 +13,23 @@ exports.run = async (client, message, args) => {
 
     let RULES = new Discord.MessageEmbed()
     .setColor("#2f3136")
-    .setAuthor("Server Rules", guildIcon, `https://dsc.gg/finix`)
+    .setAuthor("Server Rules", guildIcon, `https://dsc.gg/acronetwork`)
     .setDescription(`
     ▪ No spamming, flooding, or self-promotion
     ▪ Don't share NSFW content on random channels
     ▪ Don't direct message anyone unless you already know them personally
     ▪ Abusing is allowed but stay in your limits
-    ▪ Last but not the least, be respectful of others! This includes but not limited to, refrain from being toxic, using hate speech, racism and sexual harassment\n
+    ▪ Last but not the least, be respectful of others! This includes but not limited to, refrain from being toxic, using hate speech, racism and sexual harassment
+    ▪ Use the \`/rules\` command on the server for gameplay rules\n
         \`\`\`Simple rules, but every staff is different, staff can take any action and whenever they want\`\`\`
     `)
     .addField("Note:", "Keep in mind that our servers have smart AI designed to protect our servers. Our AI works without sleep (he is not human), automod works non-stop every day (unless there are some things)")
-    .addField("Invite Link:", "https://dsc.gg/finix")
+    .addField("Invite Link:", "https://dsc.gg/acronetwork")
     .setFooter("Regards, Admin")
 
     let ROLES = new Discord.MessageEmbed()
     .setColor("#2f3136")
-    .setAuthor("Server Roles", guildIcon, `https://dsc.gg/finix`)
+    .setAuthor("Server Roles", guildIcon, `https://dsc.gg/acronetwork`)
     .setDescription(`Take the role below by clicking the reaction below. **DO NOT SPAM CLICK**. If you are caught playing click spam, you will be given a <@&956904276335144970> role`)
     .addField("💵 - Free Games Ping", "> You will get a mention if there are free games on a platform. Apart from being free, there are also discount game notifications")
     .addField("🎮 - Game Update Ping", "> You will get a mention if there is a game update or new patch. You can request the game you want to add")

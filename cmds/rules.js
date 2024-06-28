@@ -8,8 +8,8 @@ exports.run = async (client, message, args) => {
     let guildIcon = message.guild.iconURL()
     let ABOUT = new Discord.MessageEmbed()
     .setColor("#2f3136")
-    .setAuthor("Server About", guildIcon, `https://dsc.gg/finix`)
-    .setDescription("```Welcome to FINIX! Before starting you must read the rules below. Here you can play and socialize with other people. This server has many interesting features in it. You can discuss games, programming, learning, video editors, and much more! So what are you waiting for? Read the rules below and start exploring the server! Don't forget to take the role below by clicking on the emoji```")
+    .setAuthor("Server About", guildIcon, `https://dsc.gg/acronetwork`)
+    .setDescription("```Welcome to ACRO NETWORK! Before starting you must read the rules below. Here you can play and socialize with other people. This server has many interesting features in it. You can discuss games, programming, learning, video editors, and much more! So what are you waiting for? Read the rules below and start exploring the server! Don't forget to take the role below by clicking on the emoji```")
 
     let RULES = new Discord.MessageEmbed()
     .setColor("#2f3136")
@@ -35,18 +35,30 @@ exports.run = async (client, message, args) => {
     .addField("▶️ - Youtube Ping", "> You will get a mention if there is a video or live video from YouTube. You can request the channel you want to add")
     .addField("🏆 - MPL ID Ping", "> You will get a mention if there is an MPL ID match schedule for that day or information if you want to watch it together")
 
+    let IP = new Discord.MessageEmbed()
+    .setColor("#2f3136")
+    .setAuthor("Minecraft Server")
+    .setDescription(`Don't forget to join and have fun on our minecraft server now! There are lots of interesting features in it, come join!`)
+    .addField("IP", "play.acronetwork.my.id", true)
+    .addField("Port", "19132 (For Bedrock)", true) 
+    .addField("Client", "Supported Minecraft Java & Bedrock (Crossplay)")
+    .addField("Version", "Supported 1.9.x - 1.20.x (But it is recommended to use version 1.20.x)")
+
     if (!args[0]) {
       message.channel.send(new Discord.MessageEmbed().setDescription(`<a:no:954773357407113298> | Please select one Please select one of \`all\`, \`about\`, \`rules\`, \`roles\``).setColor("RED"))
     } else if (args[0] == "all") {
       client.channels.cache.get(client.config.rulesChannel).send(ABOUT)
       client.channels.cache.get(client.config.rulesChannel).send(RULES)
       client.channels.cache.get(client.config.rulesChannel).send(ROLES)
+      client.channels.cache.get(client.config.rulesChannel).send(IP)
     } else if (args[0] == "about") {
       client.channels.cache.get(client.config.rulesChannel).send(ABOUT)
     } else if (args[0] == "rules") {
       client.channels.cache.get(client.config.rulesChannel).send(RULES)
     } else if (args[0] == "roles") {
       client.channels.cache.get(client.config.rulesChannel).send(ROLES)
+    } else if (args[0] == "ip") {
+      client.channels.cache.get(client.config.rulesChannel).send(IP)
     }
   }
   
